@@ -71,7 +71,7 @@ task.wait(3)
 -- FILA O HUB PARA EXECUTAR APÓS O TELEPORTE
 local qt = queue_on_teleport or queueteleport or (syn and syn.queue_on_teleport)
 if qt then
-    qt([[loadstring(game:HttpGet("https://raw.githubusercontent.com/852ftw/luis-e-gya/refs/heads/main/12342"))()]])
+    qt([[loadstring(game:HttpGet("https://raw.githubusercontent.com/852ftw/qedyr/refs/heads/main/q12aw2awer25"))()]])
 end
 
 TeleportService:Teleport(HUB_PLACE_ID)
