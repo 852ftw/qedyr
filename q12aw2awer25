@@ -9,19 +9,20 @@ pcall(function()
     Library = require(game.ReplicatedStorage:WaitForChild("Library", 15))
 end)
 
-local WEBHOOK_URL = "https://discordapp.com/api/webhooks/1543097670632087603/nP_xRL1gJdpE_C_RE6som3RvPkBvXM0xKh9bccySTpx3YJtgk7ZPxgjU5DlF5j023Od1"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1554300915538862182/0ZwpR8YU5PRF-j2HSAtt5CgrABadvGZ0o9qC6mAgyku58cWyB1h_cptWo2ATpAtu4ccT"
 local HUB_PLACE_ID = 15327728308
+local PING_ROLE_ID = "1004910284948906076"
 
 local SERVERS = {
-    "Abyss", "Aftermath", "Alpha", "Anarchy", "Armageddon", "Banshee", "Blight", "Bravo",
-    "Carnage", "Cataclysm", "Charlie", "Chaos", "Delta", "Despair", "Doom", "Dread",
-    "Echo", "Eclipse", "Eerie", "Fallout", "Foxtrot", "Frenzy", "Gloom", "Golf",
-    "Grave", "Grim", "Harrow", "Havoc", "Hotel", "Ignition", "India", "Inferno",
-    "Jagged", "Judgement", "Juliett", "Kilo", "Kraken", "Krypt", "Lament", "Lima",
-    "Limbo", "Malice", "Marrow", "Mike", "Morbid", "Necrosis", "November", "Null",
-    "Oblivion", "Obsidian", "Oscar", "Papa", "Pestilence", "Plague", "Quarantine",
-    "Quandary", "Quebec", "Ragnarok", "Ravage", "Reaper", "Revenant", "Romeo", "Ruin",
-    "Scourge", "Sentinel", "Shade", "Sierra", "Tango", "Tempest", "Torment", "Ulcer", "Unholy","Uniform"
+    "Abyss","Aftermath","Alpha","Anarchy","Armageddon","Banshee","Blight","Bravo",
+    "Carnage","Cataclysm","Charlie","Chaos","Delta","Despair","Doom","Dread",
+    "Echo","Eclipse","Eerie","Fallout","Foxtrot","Frenzy","Gloom","Golf",
+    "Grave","Grim","Harrow","Havoc","Hotel","Ignition","India","Inferno",
+    "Jagged","Judgement","Juliett","Kilo","Kraken","Krypt","Lament","Lima",
+    "Limbo","Malice","Marrow","Mike","Morbid","Necrosis","November","Null",
+    "Oblivion","Obsidian","Oscar","Papa","Pestilence","Plague","Quarantine",
+    "Quandary","Quebec","Ragnarok","Ravage","Reaper","Revenant","Romeo","Ruin",
+    "Scourge","Sentinel","Shade","Sierra","Tango","Tempest","Torment","Ulcer","Unholy","Uniform"
 }
 
 local FILENAME = "scanned_servers.txt"
@@ -50,24 +51,24 @@ local function saveScanned(data)
     end
 end
 
+local function sendToDiscord(msg, ping)
+    local req = syn and syn.request or http_request or request
+    if not req then return end
+    local content = ping and ("<@&" .. PING_ROLE_ID .. "> " .. msg) or msg
+    pcall(function()
+        req({
+            Url = WEBHOOK_URL,
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode({content = content})
+        })
+    end)
+end
+
 local scanned = loadScanned()
 local currentIndex = 1
 local isProcessing = false
 local hasStarted = false
-
-local function sendToDiscord(msg)
-    local req = syn and syn.request or http_request or request
-    if req then
-        pcall(function()
-            req({
-                Url = WEBHOOK_URL,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = HttpService:JSONEncode({content = msg})
-            })
-        end)
-    end
-end
 
 local function joinNextServer()
     if isProcessing then return end
@@ -75,8 +76,8 @@ local function joinNextServer()
 
     if currentIndex > #SERVERS then
         currentIndex = 1
-        scanned = {} 
-        saveScanned(scanned) 
+        scanned = {}
+        saveScanned(scanned)
         isProcessing = false
         task.wait(5)
         return joinNextServer()
@@ -93,7 +94,7 @@ local function joinNextServer()
     scanned[serverName] = true
     saveScanned(scanned)
 
-    sendToDiscord("Server: " .. serverName)
+    sendToDiscord("Server: " .. serverName, false)
 
     if Library and Library.Network then
         Library.Network:Fire("Player.JoinServer", serverName)
@@ -113,7 +114,7 @@ end)
 
 local qt = queue_on_teleport or queueteleport or (syn and syn.queue_on_teleport)
 if qt then
-    qt([[loadstring(game:HttpGet("https://raw.githubusercontent.com/852ftw/qedyr/refs/heads/main/qawr45qatqaw3wq555"))()]])
+    qt([[loadstring(game:HttpGet("https://raw.githubusercontent.com/bieeeeeel33c/blalbalblalba/refs/heads/main/game.lua"))()]])
 end
 
 RunService.Heartbeat:Connect(function()
