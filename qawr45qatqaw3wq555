@@ -4,7 +4,7 @@ local TeleportService = game:GetService("TeleportService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1549575922217132082/HDp3OhJXsO7h48PhLvxYKPCUK-Ehml8L0SybGxC_X1WPWRV__bYavG_Kvms7wNRaLuAF"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1554300915538862182/0ZwpR8YU5PRF-j2HSAtt5CgrABadvGZ0o9qC6mAgyku58cWyB1h_cptWo2ATpAtu4ccT"
 local HUB_PLACE_ID = 15327728308
 local PING_ROLE_ID = "1004910284948906076"
 local ITENS_ALVO = {"barret50", "renellim4", "m79", "backpacktier4"}
